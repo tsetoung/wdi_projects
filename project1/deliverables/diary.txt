@@ -1,0 +1,27 @@
+Day 1.
+Decided to take the "personal finance" challenge.
+Initial step was to dissect the problem line-by-line.
+I was able to see that there needed to be atleast an Account and Transaction class.
+I wrote out a UI menu to later put into my app.rb file.
+Through discussion with other members I was able to devise an initial ERD (can be found at erd.JPG).
+
+I drew up a list of files that I would need (referring to the previous AR homework).
+I created a Project1 folder, which houses a lib folder, db folder, app.rb file, Gemfile, and README.md file.
+I "bundle installed" the gem into this folder and then created my subsequent files into the lib and db folders.
+I created my database in psql.
+
+I started to populate the files that live in my lib and db folder with the simplest form of what I thought for the
+project, from the ERD, in order to see a running relation between the various files.
+(I still need to re-work my schema.sql and seed.rb files before testing.)
+
+I have stopped this process, so that I can set up my new Github repository and submit my day one deliverables.
+
+Goal to day 2:
+-Get testing of AR completed.
+-Create RSpec and subsequent files to test my UI menu (methods).
+-Complete an initial UI menu.
+-Test interaction.
+-Populate more of seed file.
+-Re-test interaction.
+
+end-day 1.
