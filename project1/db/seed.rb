@@ -1,15 +1,36 @@
 require 'active_record'
+require 'pry'
+
 require_relative 'connection'
-require_relative '../lib/fridge'
-require_relative '../lib/food'
-require_relative '../lib/drink'
+require_relative '../lib/account'
+require_relative '../lib/transaction'
 
-account = Account.create([
-  {name: "JP Morgan Chase", balance: 1000000}
+Account.destroy_all
+Transaction.destroy_all
 
+accounts = Account.create([
+  {name: "Chase Bank", category: "savings"},
+  {name: "Bank of America", category: "Roth IRA"},
+  {name: "TD Bank", category: "checking"}
   ])
 
-transaction = Transaction.find_by(name: "JP Morgan Chase").transaction.create([
-    {payee: "James Brown", amount: -5, date: , category: grocery},
-
+transactions = Account.find_by(name:"Chase Bank").transactions.create([
+    {name: "James Brown",amount: 500, category: "deposit"},
+    {name: "Jack Rummy",amount: 200, category: "deposit"}
     ])
+
+transactions = Account.find_by(name:"Bank of America").transactions.create([
+    {name: "John Hancock",amount: 200, category: "deposit"},
+    {name: "Ruth Babe",amount: 200, category: "deposit"}
+    ])
+
+transactions = Account.find_by(name:"TD Bank").transactions.create([
+    {name: "Department of State",amount: 3000, category: "deposit"},
+    {name: "Diana Ross",amount: 200, category: "withdraw"},
+    {name: "Arbys",amount: 100, category: "withdraw"},
+    {name: "McDonalds",amount: 50, category: "withdraw"},
+    {name: "Barnes and Noble",amount: 75, category: "withdraw"}
+    ])
+
+
+binding.pry

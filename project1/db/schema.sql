@@ -1,17 +1,17 @@
-DROP TABLE IF EXISTS account;
+DROP TABLE IF EXISTS accounts;
 DROP TABLE IF EXISTS transactions;
 
-CREATE TABLE account(
+CREATE TABLE accounts (
   id             SERIAL PRIMARY KEY,
   name           TEXT NOT NULL,
-  balance        MONEY NOT NULL
+  category       TEXT NOT NULL
 );
 
-CREATE TABLE transactions(
+CREATE TABLE transactions (
   id              SERIAL PRIMARY KEY,
-  payee           TEXT NOT NULL,
-  amount          MONEY NOT NULL,
-  date            BOOLEAN NOT NULL,
-  category        INTEGER NOT NULL,
-  account_id      INTEGER NOT NULL
+  name            TEXT NOT NULL,
+  amount          INTEGER,
+  category        TEXT NOT NULL,
+  date            TIME,
+  account_id      INTEGER
 );
