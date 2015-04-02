@@ -47,9 +47,9 @@ case choice
   when "1"
     puts selected_account.transactions
   when "2"
-    from_account = selected_account
+    fromaccount = selected_account
     new_action = Transaction.create(new_transaction)
-    new_action.transactions = from_account
+    new_action.fromaccount = fromaccount
     new_action.save
 
 end

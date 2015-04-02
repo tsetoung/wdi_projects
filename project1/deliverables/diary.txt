@@ -25,3 +25,18 @@ Goal to day 2:
 -Re-test interaction.
 
 end-day 1.
+
+Day 2.
+Was able to get my files to relate to one another.
+Started down the path with a different schema and seed file.
+After some SCRUM sessions I decided to copy all my data to MAC pages and
+rework my data.
+Started to get my UI to work based on new data.
+
+Day 3 goals:
+-Finalize the UI
+-Run a final test
+-Input Validations
+-Refactor
+
+end-day 2
