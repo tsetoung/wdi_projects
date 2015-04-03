@@ -40,3 +40,17 @@ Day 3 goals:
 -Refactor
 
 end-day 2
+
+Day 3.
+A big break-through!!! I was able to understand the power of AR.  Because of
+this I was able to easily develop a method to add and subtract deposits and withdraws.
+I shared this with others working on the same project.
+Completed Testing.
+Completed Model/UI.
+Completed ERD.
+
+To Do:
+Need to Complete Validations.
+Need to refactor more.
+
+end-day 3

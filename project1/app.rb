@@ -7,87 +7,131 @@ require_relative 'lib/account'
 require_relative 'lib/transaction'
 
 # binding.pry
-# puts "Current Total Balance is:"
-# puts Transaction.sum(:amount)
 
+def border
+  puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+end
 
-def selected_account
+def account
   puts "What account do you want, enter the associated number?"
   puts Account.all
   id = gets.chomp
-  return your_account = Account.find_by(id: id)
+  return Account.find_by(id: id)
 end
 
-def new_transaction
-  transaction_attr = {}
+def selected_transaction(account)
+  puts "Which transaction?"
+  puts account.transactions
+  account_id = gets.chomp
+  return account.transactions.find_by(id: account_id)
+end
+
+def money_input
+  money_attr = {}
   puts "What is the name?"
-  transaction_attr[:name] = gets.chomp
-  puts "How much is the amount?"
-  transaction_attr[:amount] = gets.chomp
-  puts "What category? (deposit or withdraw)"
-  transaction_attr[:category] = gets.chomp
-  return transaction_attr
+  money_attr[:name] = gets.chomp
+  puts "What is the amount?"
+  money_attr[:amount] = gets.chomp
+  puts "What is the category? (deposit or withdraw)"
+  money_attr[:category] = gets.chomp
+  return money_attr
+end
+
+def show_credit
+  Transaction.where(category: "deposit")
+end
+
+def show_debit
+  Transaction.where(category: "withdraw")
+end
+
+def show_balance
+  balance = sum_deposits - sum_withdraws
+  return balance
+end
+
+def sum_deposits
+  Transaction.where(category: "deposit").sum(:amount)
+end
+
+def sum_withdraws
+  Transaction.where(category: "withdraw").sum(:amount)
+end
+
+def single_sum
+  id = gets.chomp
+  sum = Transaction.where(account_id: id).where(category: "deposit").sum(:amount)
+  subtract = Transaction.where(account_id: id).where(category: "withdraw").sum(:amount)
+  return sum-subtract
+end
+
+def clear
+  system("clear")
 end
 
 def menu
+  puts border
   puts "Choose an option:
-  1. See all Transactions by Account
+  1. See all Transactions from a Specific Account
   2. Edit an exisiting Transaction
-  3. Delect an exisiting Transaction
-  4. See Current Balance
-  5. See all Transactions by Category
-  6. See Ballance of all Transactions
-  7. Quit"
+  3. Delete an exisiting Transaction
+  4. Add a Transaction
+  5. See Current Balance
+  6. See all Transactions by Category
+  7. See Balance of a Single Account
+  8. Quit"
+  puts border
   return gets.chomp
 end
+
+loop do
 
 choice = menu
 case choice
 
   when "1"
-    puts selected_account.transactions
+    clear
+    puts account.transactions
   when "2"
-    fromaccount = selected_account
-    new_action = Transaction.create(new_transaction)
-    new_action.fromaccount = fromaccount
-    new_action.save
-
+    clear
+    updated_transaction = selected_transaction(account)
+    puts "Update Amount"
+    new_amount = gets.chomp
+    puts "Update Category"
+    new_category = gets.chomp
+    updated_transaction.update(amount: new_amount, category: new_category)
+    updated_transaction.save
+    puts account.transactions
+  when "3"
+    clear
+    trans = selected_transaction(account)
+    trans.destroy
+    puts account.transactions
+  when "4"
+    clear
+    acct = account
+    acct.transactions.create(money_input)
+    acct.save
+    puts account.transactions
+  when "5"
+    clear
+    puts "Total Balance from all Accounts:"
+    puts show_balance
+  when "6"
+    clear
+    puts "All withdraws:"
+    puts show_debit
+    puts "All deposits:"
+    puts show_credit
+  when "7"
+    clear
+    puts "Choose an account:"
+    puts Account.all
+    puts "Balance of Transactions:"
+    puts single_sum
+  when "8"
+    clear
+    puts "Thank you for visiting.  Come back soon."
+  break
+  end
 end
-
-
-
-# def choose_account
-#   puts "Which Account do you want to see?"
-#   puts Account.all
-#   name_input = gets.chomp
-#   return Account.find_by(name: name_input)
-# end
-#
-# def acct_name
-#   return choose_name
-# end
-#
-#
-#
-#
-
-#
-#
-#
-#
-# # chase_bank = Account.find_by(name: "Chase Bank")
-# # chase_bank.tranasations.all
-#
-# when "2"
-#   account = choose_account
-#   puts account.transactions
-# when "3"
-#
-# when "4"
-#   my_acct = choose_account
-#   drink = get_drink(my_acct)
-#   puts "What is the new size?"
-#   new_size = gets.chomp
-#   drink.size = new_size
-#   drink.save
-# end

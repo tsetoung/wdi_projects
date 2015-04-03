@@ -13,5 +13,5 @@ CREATE TABLE transactions (
   amount          INTEGER,
   category        TEXT NOT NULL,
   date            TIME,
-  account_id      INTEGER
+  account_id      INTEGER NOT NULL
 );
