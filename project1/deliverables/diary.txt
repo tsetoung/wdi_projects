@@ -54,3 +54,8 @@ Need to Complete Validations.
 Need to refactor more.
 
 end-day 3
+
+Day 4.
+Incorporated some validations.
+
+Completed...I think.
