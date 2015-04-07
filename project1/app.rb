@@ -12,6 +12,8 @@ def border
   puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
 end
 
+# this method isn't clearly named... I think `get_account` or `prompt_for_account`
+# would be better
 def account
   puts "What account do you want, enter the associated number?"
   puts Account.all
@@ -19,13 +21,20 @@ def account
   return Account.find_by(id: id)
 end
 
+# same as above, I think this makes more sense as `get_transaction` or
+# `prompt_for_transaction`
 def selected_transaction(account)
   puts "Which transaction?"
   puts account.transactions
+
+  # this variable seems to be mis-named. You're using it below to find a transaction
+  # by id, so I think it should be called transaction_id
   account_id = gets.chomp
   return account.transactions.find_by(id: account_id)
 end
 
+# again with naming, what does this method do? I think `get_transaction_input`
+# might be better
 def money_input
   money_attr = {}
   puts "What is the name?"
@@ -37,6 +46,9 @@ def money_input
   return money_attr
 end
 
+# this method (and the next one after) are confusingly named, as they don't
+# 'show' credits and debits, they return credits and debits. It's later on
+# in the menu code where you 'show' them by puts-ing.
 def show_credit
   Transaction.where(category: "deposit")
 end
@@ -58,11 +70,11 @@ def sum_withdraws
   Transaction.where(category: "withdraw").sum(:amount)
 end
 
-def single_sum
+# this is the method we refactored in our one-on-one
+def get_balance
   id = gets.chomp
-  sum = Transaction.where(account_id: id).where(category: "deposit").sum(:amount)
-  subtract = Transaction.where(account_id: id).where(category: "withdraw").sum(:amount)
-  return sum-subtract
+  account = Account.find(id)
+  account.balance
 end
 
 def clear
@@ -84,9 +96,11 @@ def menu
   return gets.chomp
 end
 
+# good job keeping the menu code relatively clean!
 loop do
 
-choice = menu
+# these two lines should be indented in 1 level, as they are inside the loop do...end
+choice = menu 
 case choice
 
   when "1"
@@ -128,7 +142,7 @@ case choice
     puts "Choose an account:"
     puts Account.all
     puts "Balance of Transactions:"
-    puts single_sum
+    puts balance
   when "8"
     clear
     puts "Thank you for visiting.  Come back soon."
